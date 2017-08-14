@@ -32,7 +32,7 @@ exports.getComponent = ->
         state.db = data.payload
         out.out.send state
         do callback
-      when 'storage:opened'
+      when 'storage:opening', 'storage:opened'
         out.out.send data.payload
         state = data.state or {}
         ctx = data.payload

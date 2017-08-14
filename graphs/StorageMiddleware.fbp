@@ -20,6 +20,7 @@ Dispatch PASS -> IN Passed(core/Merge)
 'storage:removed:spec' -> ACTION RemovedSpecAction(ui/SetAction) OUT -> IN NewActions(core/Merge)
 'storage:removed:runtime' -> ACTION RemovedRuntimeAction(ui/SetAction) OUT -> IN NewActions(core/Merge)
 'storage:error' -> ACTION StorageErrorAction(ui/SetAction) OUT -> IN NewActions(core/Merge)
+'storage:opening' -> ACTION StorageOpeningAction(ui/SetAction) OUT -> IN NewActions(core/Merge)
 'storage:opened' -> ACTION StorageOpenAction(ui/SetAction) OUT -> IN NewActions(core/Merge)
 'application:hash' -> ACTION ApplicationHashAction(ui/SetAction) OUT -> IN NewActions(core/Merge)
 
@@ -65,5 +66,6 @@ DeleteData ERROR -> IN StorageErrorAction
 
 # Open a local project
 Dispatch HANDLE[4] -> IN OpenProject(ui/OpenProject)
-OpenProject OUT -> IN StorageOpenAction
+OpenProject REMOTE -> IN StorageOpeningAction
+OpenProject READY -> IN StorageOpenAction
 OpenProject ERROR -> IN StorageErrorAction

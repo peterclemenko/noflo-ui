@@ -48,11 +48,14 @@ exports.getComponent = ->
   c = new noflo.Component
   c.inPorts.add 'in',
     datatype: 'object'
-  c.outPorts.add 'out',
+  c.outPorts.add 'ready',
+    datatype: 'object'
+  c.outPorts.add 'remote',
     datatype: 'object'
   c.outPorts.add 'error',
     datatype: 'object'
   noflo.helpers.WirePattern c,
+    out: ['ready', 'remote']
     async: true
     forwardGroups: false
   , (data, groups, out, callback) ->
@@ -106,7 +109,11 @@ exports.getComponent = ->
 
       ctx.graphs.push currentGraph
 
-    ctx.state = if ctx.remote.length then 'loading' else 'ok'
-    out.send ctx
+    if ctx.remote.length
+      ctx.state = 'loading'
+      out.remote.send ctx
+    else
+      ctx.state = 'ok'
+      out.ready.send ctx
 
     do callback
