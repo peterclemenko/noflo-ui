@@ -40,7 +40,8 @@
     "observe-js": "^0.5.7",
     "rtc": "^3.4.0",
     "the-graph": "^0.10.2",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -82,10 +83,13 @@
     "test": "karma start",
     "start": "simple-server . 9999",
     "build": "grunt build",
-    "watch": "grunt watch"
+    "watch": "grunt watch",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "keywords": [
     "noflo",
     "fbp"
-  ]
+  ],
+  "snyk": true
 }
